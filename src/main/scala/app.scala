@@ -28,7 +28,6 @@ object app {
 
     val flightsFromTo = df_1.select($"Origin",$"Dest").rdd
     val airportCodes = df_1.flatMap( x => Iterable(x(0).toString, x(1).toString)).rdd
-    airportCodes.collect.foreach(println(_))
 
     val airportVertices: RDD[(VertexId, String)] = airportCodes.distinct().map(x => (MurmurHash3.stringHash(x), x))
     val defaultAirport = ("Missing")
